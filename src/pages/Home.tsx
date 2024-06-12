@@ -1,26 +1,49 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonContent, IonHeader, IonItem, IonPage, IonTitle, IonToolbar, useIonRouter, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import './Home.css';
 
-const Home: React.FC = () => {
+const Home: React.FC<any> = ({match}) => {
+  const history = useIonRouter();
+  
+  useIonViewWillEnter(() => {
+    console.log('ionViewWillEnter event fired', match);
+  });
+
+  useIonViewWillLeave(() => {
+    console.log('end');
+  });
+
+
   return (
+    
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Blank</IonTitle>
+          <IonTitle>Home</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
-      </IonContent>
+      <Content />
+      <IonItem
+        onClick={() => { 
+          history.goBack();
+        }}
+      >back</IonItem>
+      <IonItem routerLink='/1'>1</IonItem>
     </IonPage>
   );
 };
+const Content = () => { 
+  useIonViewWillEnter(() => {
+      console.log('ionViewWillEnter event fired home');
+  });
 
+  useIonViewWillLeave(() => {
+      console.log('end');
+  });
+  return (
+      <IonContent>
+
+      </IonContent>
+  )
+}
 export default Home;
